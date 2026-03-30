@@ -288,6 +288,55 @@ function setupLanguageSelector(root = document) {
     });
 }
 
+function setupHeaderMenu(root = document) {
+    const nav = root.querySelector(".site-header") || document.querySelector(".site-header");
+    const toggle = root.querySelector(".nav-toggle") || document.querySelector(".nav-toggle");
+    const menu = root.querySelector(".nav-menu") || document.querySelector(".nav-menu");
+
+    if (!nav || !toggle || !menu || toggle.dataset.bound === "true") {
+        return;
+    }
+
+    toggle.dataset.bound = "true";
+
+    const closeMenu = () => {
+        menu.classList.remove("is-open");
+        toggle.setAttribute("aria-expanded", "false");
+        toggle.setAttribute("aria-label", "Open menu");
+    };
+
+    const openMenu = () => {
+        menu.classList.add("is-open");
+        toggle.setAttribute("aria-expanded", "true");
+        toggle.setAttribute("aria-label", "Close menu");
+    };
+
+    toggle.addEventListener("click", () => {
+        const isOpen = menu.classList.contains("is-open");
+        if (isOpen) {
+            closeMenu();
+        } else {
+            openMenu();
+        }
+    });
+
+    menu.querySelectorAll("a").forEach((link) => {
+        link.addEventListener("click", () => {
+            if (window.innerWidth <= 560) {
+                closeMenu();
+            }
+        });
+    });
+
+    window.addEventListener("resize", () => {
+        if (window.innerWidth > 560) {
+            menu.classList.remove("is-open");
+            toggle.setAttribute("aria-expanded", "false");
+            toggle.setAttribute("aria-label", "Open menu");
+        }
+    });
+}
+
 function loadSection(filePath, targetId, callback) {
     fetch(filePath)
         .then((response) => response.text())
@@ -439,7 +488,7 @@ function setupDominicanGlobe(sectionRoot) {
     controls.enableRotate = false;
 }
 
-loadSection("sections/header.html", "header-placeholder");
+loadSection("sections/header.html", "header-placeholder", setupHeaderMenu);
 loadSection("sections/home.html", "home");
 loadSection("sections/servicios.html", "servicios", setupServicesCarousel);
 loadSection("sections/about-us.html", "about-us", setupDominicanGlobe);
