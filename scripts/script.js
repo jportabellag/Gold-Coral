@@ -435,6 +435,10 @@ function setupServicesCarousel(sectionRoot) {
     renderCarousel();
 }
 
+function setupHomeCarousel(sectionRoot) {
+    sectionRoot.querySelector(".home-carousel-progress");
+}
+
 function setupDominicanGlobe(sectionRoot) {
     const globeContainer = sectionRoot.querySelector("#globe-map");
 
@@ -489,7 +493,7 @@ function setupDominicanGlobe(sectionRoot) {
 }
 
 loadSection("sections/header.html", "header-placeholder", setupHeaderMenu);
-loadSection("sections/home.html", "home");
+loadSection("sections/home.html", "home", setupHomeCarousel);
 loadSection("sections/servicios.html", "servicios", setupServicesCarousel);
 loadSection("sections/about-us.html", "about-us", setupDominicanGlobe);
 loadSection("sections/contacto.html", "contacto");
