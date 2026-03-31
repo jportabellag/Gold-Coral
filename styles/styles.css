@@ -1263,6 +1263,15 @@ a {
         width: min(100% - 28px, 1120px);
     }
 
+    .home-carrusel {
+        display: none;
+    }
+
+    .home-hero {
+        gap: 22px;
+        padding-bottom: 48px;
+    }
+
     .services-section {
         min-height: auto;
         padding-top: 52px;
