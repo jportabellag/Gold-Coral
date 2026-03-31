@@ -1,4 +1,5 @@
 const STORAGE_LANGUAGE_KEY = "gold-coral-language";
+const ASSET_VERSION = "20260331-1";
 let currentLanguage = localStorage.getItem(STORAGE_LANGUAGE_KEY) || "en";
 
 const translations = {
@@ -338,7 +339,7 @@ function setupHeaderMenu(root = document) {
 }
 
 function loadSection(filePath, targetId, callback) {
-    fetch(filePath)
+    fetch(`${filePath}?v=${ASSET_VERSION}`)
         .then((response) => response.text())
         .then((data) => {
             const target = document.getElementById(targetId);
